@@ -26,7 +26,7 @@
 	```
 	apt-cache search nvidia | grep nvidia-driver-460
 	```
-* 드라이버 설치 (위의 추천 드라이버로 설)
+* 드라이버 설치 (위의 추천 드라이버로 설치)
 	```
 	sudo apt-get install nvidia-driver-460
 	```
@@ -37,7 +37,7 @@
 
 ## 2. docker 설치
 ### 2.1 이전 버전 제거
-* 만약 이전 버전이 설치 되어 있으면 (처음 설치라면 무시)
+* 만약 이전 버전이 설치 되어 있으면 삭제 (처음 설치라면 무시)
 	```
 	sudo apt-get remove docker docker-engine docker.io containerd runc
 	```
@@ -60,27 +60,15 @@
 	arch
 	```
 * 시스템 아키텍처에 따라 저장소 설정
-1. x86_64 or amd64 
 	```
 	sudo add-apt-repository \
 		"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
 		$(lsb_release -cs) \
 		stable"
 	```
-2. armhf   
-	```
-	sudo add-apt-repository \
-		"deb [arch=armhf] https://download.docker.com/linux/ubuntu \
-		$(lsb_release -cs) \
-		stable"
-	```
-3. arm64
-	```
-	sudo add-apt-repository \
-		"deb [arch=arm64] https://download.docker.com/linux/ubuntu \
-		$(lsb_release -cs) \
-		stable"
-	```
+	* x86_64 or amd64 -> arch=amd64
+	* armhf -> arch=armhf
+	* arm64 -> arch=arm64
 ### 2.3 도커 엔진 설치
 * 	apt pakage update 후 docker engine 설치
 	```
@@ -128,21 +116,21 @@
 		-it \
 		-p 8888:8888 \
 		-p 6006:6006 \
-		-v ~/docker:/data \
+		-v ~/docker/data:/data \
 		tensorflow/tensorflow:latest-gpu-jupyter
 	```
 	--name: 컨테이너 이름   
 	--gpus all: nvidia-docker gpu 사용   
 	-i: 상호 입출력   
 	-t: tty 활성화 bash셀 사용 가능   
-	-포트 연결 (8888 쥬피터 노트북을 위해 사용, 6006 텐서보드를 위해 사용)   
+	-p: 포트 연결 (8888 쥬피터 노트북을 위해 사용, 6006 텐서보드를 위해 사용)   
 	-v: 볼륨 컴퓨터와 공유하는 폴더 지정
 * jupyter notebook 시작	  
 	http://127.0.0.1:8888
 	
 * 컨테이너 bash terminal 시작  
 	```
-	sudo docker exec -it tf bin/bash
+	sudo docker exec -it tf /bin/bash
 	```
 
 ## 참고문서

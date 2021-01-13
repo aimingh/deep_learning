@@ -98,7 +98,8 @@
 	```
 	distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 	   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
-	   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list	
+	   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list \
+	   | sudo tee /etc/apt/sources.list.d/nvidia-docker.list	
 	```	   
 * nvidia-docker2 설치
 	```
@@ -121,7 +122,14 @@
 	```
 * 텐서플로우 도커 컨테이너 시작 (포트 충돌이 있을 수 있으니 포트 확인 필요)
 	```
-	sudo docker run --name tf --gpus all -it -p 8888:8888 -p 6006:6006 -v ~/docker:/data tensorflow/tensorflow:latest-gpu-jupyter
+	sudo docker run \
+		--name tf \
+		--gpus all \
+		-it \
+		-p 8888:8888 \
+		-p 6006:6006 \
+		-v ~/docker:/data \
+		tensorflow/tensorflow:latest-gpu-jupyter
 	```
 	--name: 컨테이너 이름   
 	--gpus all: nvidia-docker gpu 사용   

@@ -103,12 +103,12 @@
 	sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 	```
 
-## 4. Docker를 이용하여 텐서플로우 설치
-* tensorflow 이미지 다운로드 gpu, jupyter 버전
+## 4. Docker를 이용하여 Tensorflow 설치
+* Tensorflow 이미지 다운로드 gpu, jupyter 버전
 	```
 	sudo docker pull tensorflow/tensorflow:latest-gpu-jupyter
 	```
-* 텐서플로우 도커 컨테이너 시작 (포트 충돌이 있을 수 있으니 포트 확인 필요)
+* Tensorflow 도커 컨테이너 시작 (포트 충돌이 있을 수 있으니 포트 확인 필요)
 	```
 	sudo docker run \
 		--name tf \
@@ -125,6 +125,13 @@
 	-t: tty 활성화 bash셀 사용 가능   
 	-p: 포트 연결 (8888 쥬피터 노트북을 위해 사용, 6006 텐서보드를 위해 사용)   
 	-v: 볼륨 컴퓨터와 공유하는 폴더 지정
+* Tensorflow 이전 버전 설치  
+	```
+	sudo docker run tensorflow/tensorflow:1.15.0-gpu-jupyter
+	```
+	* docker image 이름에 tag를 추가  
+	* tensorflow에서 제공하는 다른 이미지에 대한 정보는 다음 링크를 통해 참고
+	[tensorflow/tensorflow](https://hub.docker.com/r/tensorflow/tensorflow/)
 * jupyter notebook 시작	  
 	http://127.0.0.1:8888
 	

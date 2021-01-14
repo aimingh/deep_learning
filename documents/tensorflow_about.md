@@ -1,5 +1,5 @@
 # Tensorflow
-
+텐서플로우와 관련된 내용들 모음
 
 ## Tensorboard
 참고: [Tensorboard getting started](https://www.tensorflow.org/tensorboard/get_started)

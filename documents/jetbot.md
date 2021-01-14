@@ -1,9 +1,9 @@
 # jetbot with tensorflow
-
     
 ## 1. 기존환경
 ### jetbot software install using SD card Image [Jetbot documents](https://jetbot.org/master/software_setup/sd_card.html)  
 jetpack에 따라 가능한 tensorflow 버전이 다르니 확인 후 업그레이드 [TensorFlow For Jetson Platform](https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform-release-notes/tf-jetson-rel.html#tf-jetson-rel)
+
 * jetpack 4.4.1
 * jetbot version 0.4.2
 * tensorflow 1.15.2
@@ -24,7 +24,6 @@ Tensorflow 업그레이드 (1.15.2 -> 2.3.1)
     apt update
     apt install libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev liblapack-dev libblas-dev gfortran
     ```
-
     * pip3 업그레이드
     ```
     apt install python3-pip

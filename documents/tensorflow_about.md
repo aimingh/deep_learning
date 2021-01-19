@@ -10,6 +10,19 @@ tensorboard --logdir=path/to/logs --port=6006 --host=0.0.0.0
 * --port: 포트 
 * --host: 외부 ip에 대한 허가
 
+## Keras model 그래프 이미지로 저장하기
+* 필요한 패키지 설치
+```
+sudo apt install graphviz
+pip install pydot
+pip install pydot-ng
+```
+* python 예재
+```
+from tensorflow.keras.utils import plot_model
+plot_model(model, show_shapes=True, to_file='LeNet5.png')
+```
+
 ## Docker tensorflow service
 Docker tensorflow를 서비스로 등록하여 부팅시 도커 서버가 자동으로 실행  
 참고: [Docker 컨테이너 자동시작](https://help.iwinv.kr/manual/read.html?idx=572)

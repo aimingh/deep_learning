@@ -75,10 +75,14 @@
 	sudo apt-get update
 	sudo apt-get install docker-ce docker-ce-cli containerd.io
 	```
-* 설치가 되었는지 도커 확인 (계정을 docker 그룹에 추가하면 sudo를 안써도 된다.)
+* 설치가 되었는지 도커 확인   
+	* [root 권한을 사용하지 않고 docker 관리](docker.md)  
+	계정을 docker 그룹에 추가하면 sudo를 안써도 된다.   
+	위의 과정을 안했을 경우에는 docker에 root 권한이 필요하므로 sudo를 붙여서 실행
+
 	```
-	sudo docker -v
-	sudo docker run hello-world
+	docker -v
+	docker run hello-world
 	```
 
 ## 3. nvidia-docker 설치
@@ -100,17 +104,17 @@
 	```	
 * base CUDA 컨테이너가 작동하는지 테스트
 	```
-	sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+	docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 	```
 
 ## 4. Docker를 이용하여 Tensorflow 설치
 * Tensorflow 이미지 다운로드 gpu, jupyter 버전
 	```
-	sudo docker pull tensorflow/tensorflow:latest-gpu-jupyter
+	docker pull tensorflow/tensorflow:latest-gpu-jupyter
 	```
 * Tensorflow 도커 컨테이너 시작 (포트 충돌이 있을 수 있으니 포트 확인 필요)
 	```
-	sudo docker run \
+	docker run \
 		--name tf \
 		--gpus all \
 		-it \
@@ -127,7 +131,7 @@
 	-v: 볼륨 컴퓨터와 공유하는 폴더 지정
 * Tensorflow 이전 버전 설치  
 	```
-	sudo docker run tensorflow/tensorflow:1.15.0-gpu-jupyter
+	docker run tensorflow/tensorflow:1.15.0-gpu-jupyter
 	```
 	* docker image 이름에 tag를 추가  
 	* tensorflow에서 제공하는 다른 이미지에 대한 정보는 다음 링크를 통해 참고
@@ -137,7 +141,7 @@
 	
 * 컨테이너 bash terminal 시작  
 	```
-	sudo docker exec -it tf /bin/bash
+	docker exec -it tf /bin/bash
 	```
 
 ## 참고문서

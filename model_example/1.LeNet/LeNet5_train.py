@@ -43,9 +43,8 @@ plot_model(model, show_shapes=True, to_file='LeNet5.png')
 # tensorboard 모니터링을 위한 callback 함수 정의
 callbacks = [
     keras.callbacks.TensorBoard(
-        log_dir='log_LeNet',
-        histogram_freq=1,
-        embeddings_freq=1
+        log_dir='LeNet_log',
+        histogram_freq=1
     )
 ]
 

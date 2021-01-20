@@ -1,5 +1,6 @@
 model_example/*/*log/*
 model_example/*/*.h5
+model_example/*/*.csv
 datasets/*
 *log/*
 *.png

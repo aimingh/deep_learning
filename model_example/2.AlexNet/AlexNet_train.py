@@ -7,6 +7,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 path_dataset = './datasets/dogs_vs_cats_split'
 batch_size = 64
+epoch = 10
 num_sample = [15000, 5000, 5000]
 
 # data preprocessing
@@ -65,7 +66,6 @@ model.compile(optimizer='adam',
 
 # 모델 정보
 model.summary()
-
 # 모델 그래프 이미지로 저장
 plot_model(model, show_shapes=True, to_file='AlexNet.png')
 
@@ -75,15 +75,13 @@ callbacks = [
         log_dir='AlexNet_log',
         histogram_freq=1,
         write_graph=True,
-        update_freq=1,
-    )
-]
+        update_freq=1,)]
 
 # Model fitting, training
 history = model.fit_generator(
       train_generator,
       steps_per_epoch=num_sample[0]//batch_size,
-      epochs=100,
+      epochs=epoch,
       validation_data=validation_generator,
       validation_steps=num_sample[1]//batch_size,
       callbacks=callbacks)

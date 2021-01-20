@@ -1,2 +1,5 @@
 model_example/*/*log/*
 model_example/*/*.h5
+datasets/*
+*log/*
+*.png

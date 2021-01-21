@@ -14,6 +14,7 @@ OUTPUT_CHANNELS=3
 if os.path.exists(result_dir):  # 반복적인 실행을 위해 디렉토리를 삭제합니다.
     shutil.rmtree(result_dir)   # 이 코드는 책에 포함되어 있지 않습니다.
 os.mkdir(result_dir)
+
 num_test_img = len(os.listdir(test_dir))
 step_for_epoch = num_test_img//BATCH_SIZE if num_test_img%BATCH_SIZE==0 else (num_test_img//BATCH_SIZE + 1)
 

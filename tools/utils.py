@@ -1,45 +1,7 @@
 import tensorflow as tf
+import numpy as np
 from tensorflow.keras.datasets import mnist
 from matplotlib import pyplot as plt
-
-# class flow_from_dir_images_class_folder:
-#     def __init__(self):
-#         self.train_datagen = ImageDataGenerator(
-#             rescale=1./255,
-#             rotation_range=40,
-#             width_shift_range=0.2,
-#             height_shift_range=0.2,
-#             shear_range=0.2,
-#             zoom_range=0.2,
-#             horizontal_flip=True,)
-#         self.validation_datagen = ImageDataGenerator(rescale=1./255)
-#         self.test_datagen = ImageDataGenerator(rescale=1./255)
-
-#     def load_image_dir(self, path):
-#         train_generator = train_datagen.flow_from_directory(
-#                 path,
-#                 target_size=(224, 224),
-#                 batch_size=batch_size,
-#                 class_mode='binary')
-#         return train_generator
-
-#     def load_image_dir(self, path):
-#         validation_generator = validation_datagen.flow_from_directory(
-#                 path,
-#                 target_size=(224, 224),
-#                 batch_size=batch_size,
-#                 class_mode='binary')
-#         return validation_generator
-
-#     def load_image_dir(self, path, target_size = (224, 224), class_mode = 'categorical'):
-#         test_generator = test_datagen.flow_from_directory(
-#                 path,
-#                 target_size=target_size,
-#                 batch_size=batch_size,
-#                 class_mode=class_mode)
-#         return test_generator
-
-
 
 '''
 load image that concat vertically input image and ground truth image like cityscapes dataset
@@ -109,7 +71,15 @@ class flow_from_dir_concat_images:
 def step_for_epoch(num, batch_size):
     return num//batch_size if num%batch_size==0 else (num//batch_size + 1)
 
+def generate_images(model, test_input, tar, filenames, result_dir):
+    prediction = model.predict(test_input)
 
+    filenames = np.array(filenames)
+    for i in range(len(np.array(filenames))):
+        final_img = np.hstack((test_input[i], tar[i]))
+        final_img = np.hstack((final_img* 0.5 + 0.5, prediction[i]))
+        filename = filenames[i].decode ('utf-8').split('/')[-1][:-4]
+        plt.imsave(result_dir + '/' + filename + '.png', final_img )
 
 # def generate_images(self, model, test_input, tar, filenames, result_dir):
 #     prediction = model(test_input, training=True)
@@ -120,3 +90,44 @@ def step_for_epoch(num, batch_size):
 #         final_img = np.hstack((test_input[i], tar[i], prediction[i]))
 #         filename = filenames[i].decode ('utf-8').split('/')[-1][:-4]
 #         plt.imsave(result_dir + '/' + filename + '.png', final_img * 0.5 + 0.5)
+
+
+
+
+# class flow_from_dir_images_class_folder:
+#     def __init__(self):
+#         self.train_datagen = ImageDataGenerator(
+#             rescale=1./255,
+#             rotation_range=40,
+#             width_shift_range=0.2,
+#             height_shift_range=0.2,
+#             shear_range=0.2,
+#             zoom_range=0.2,
+#             horizontal_flip=True,)
+#         self.validation_datagen = ImageDataGenerator(rescale=1./255)
+#         self.test_datagen = ImageDataGenerator(rescale=1./255)
+
+#     def load_image_dir(self, path):
+#         train_generator = train_datagen.flow_from_directory(
+#                 path,
+#                 target_size=(224, 224),
+#                 batch_size=batch_size,
+#                 class_mode='binary')
+#         return train_generator
+
+#     def load_image_dir(self, path):
+#         validation_generator = validation_datagen.flow_from_directory(
+#                 path,
+#                 target_size=(224, 224),
+#                 batch_size=batch_size,
+#                 class_mode='binary')
+#         return validation_generator
+
+#     def load_image_dir(self, path, target_size = (224, 224), class_mode = 'categorical'):
+#         test_generator = test_datagen.flow_from_directory(
+#                 path,
+#                 target_size=target_size,
+#                 batch_size=batch_size,
+#                 class_mode=class_mode)
+#         return test_generator
+

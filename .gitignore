@@ -1,5 +1,5 @@
-
 datasets/*
+*checkpoint*/*
 __pycache__/*
 *log*/*
 *.png
@@ -12,5 +12,3 @@ __pycache__/*
 */*/*.csv
 */*/*checkpoint*/*
 */*/__pycache__/*
-
-training_checkpoints/*

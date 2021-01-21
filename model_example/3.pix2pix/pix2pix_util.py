@@ -259,8 +259,7 @@ class pix2pix_GAN:
                                                                 time.time()-start))
         self.checkpoint.save(file_prefix = self.checkpoint_prefix)
 
-    # visualization
-
+    # save test results
     def generate_images(self, model, test_input, tar, filenames, result_dir):
         prediction = model(test_input, training=True)
         plt.figure()

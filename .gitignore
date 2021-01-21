@@ -6,6 +6,7 @@ __pycache__/*
 
 */log*/*
 */__pycache__/*
+*/train/*
 
 */*/*log*/*
 */*/*.h5

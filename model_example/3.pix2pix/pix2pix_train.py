@@ -12,9 +12,7 @@ IMG_HEIGHT=256
 OUTPUT_CHANNELS=3
 LAMBDA=100
 
-data = image_flow_from_dir(IMG_WIDTH=IMG_WIDTH,
-                            IMG_HEIGHT=IMG_HEIGHT)
-
+data = image_flow_from_dir(IMG_WIDTH=IMG_WIDTH, IMG_HEIGHT=IMG_HEIGHT)
 model = pix2pix_GAN(OUTPUT_CHANNELS=OUTPUT_CHANNELS, 
                     LAMBDA=LAMBDA,
                     checkpoint_dir=checkpoint_dir,

@@ -77,9 +77,24 @@ def generate_images(model, test_input, tar, filenames, result_dir):
     filenames = np.array(filenames)
     for i in range(len(np.array(filenames))):
         final_img = np.hstack((test_input[i], tar[i]))
-        final_img = np.hstack((final_img* 0.5 + 0.5, prediction[i]))
+
+        if prediction[i].shape[2] == 1:
+            prediction_gray2rgb = np.stack((prediction[i],)*3, 2).reshape((prediction[i].shape[0],prediction[i].shape[1],3))
+
+        final_img = np.hstack((final_img* 0.5 + 0.5, prediction_gray2rgb))
         filename = filenames[i].decode ('utf-8').split('/')[-1][:-4]
         plt.imsave(result_dir + '/' + filename + '.png', final_img )
+
+def rgb2gray(img):
+    if len(img.shape)==3:
+        if img.dtype == np.uint8:
+            img = np.float32(img)
+            gray = (0.299*img[:,:,0] + 0.587*img[:,:,1] + 0.114*img[:,:,2])
+            return np.uint8(gray)
+        else:
+            return 0.299*img[:,:,0] + 0.587*img[:,:,1] + 0.114*img[:,:,2]
+    else:
+        return (img)
 
 # def generate_images(self, model, test_input, tar, filenames, result_dir):
 #     prediction = model(test_input, training=True)

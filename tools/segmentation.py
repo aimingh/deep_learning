@@ -64,3 +64,100 @@ def unet(input_size,
     model = models.Model(input, output)
 
     return model
+
+def unet_small(input_size, 
+         n_filters = 32, 
+         kernel_size=3, 
+         dropout_rate=0.1,
+         output_channerl = 1):
+    input = layers.Input(input_size)
+
+    # conv
+    conv1_1 = down_conv(input, n_filters, kernel_size, dropout_rate)  
+    conv1_2 = down_conv(conv1_1, n_filters, kernel_size, dropout_rate)  
+    pool1 = layers.MaxPooling2D(pool_size = (2, 2))(conv1_2)
+    pool1 = layers.Dropout(rate = dropout_rate)(pool1)
+
+    conv2_1 = down_conv(pool1, 2*n_filters, kernel_size, dropout_rate)  
+    conv2_2 = down_conv(conv2_1, 2*n_filters, kernel_size, dropout_rate)  
+    pool2 = layers.MaxPooling2D(pool_size = (2, 2))(conv2_2)
+    pool2 = layers.Dropout(rate = dropout_rate)(pool2)
+
+    conv3_1 = down_conv(pool2, 4*n_filters, kernel_size, dropout_rate)  
+    conv3_2 = down_conv(conv3_1, 4*n_filters, kernel_size, dropout_rate)  
+    pool3 = layers.MaxPooling2D(pool_size = (2, 2))(conv3_2)
+    pool3 = layers.Dropout(rate = dropout_rate)(pool3)
+
+    conv4_1 = down_conv(pool3, 8*n_filters, kernel_size, dropout_rate)  
+    conv4_2 = down_conv(conv4_1, 8*n_filters, kernel_size, dropout_rate)  
+
+    upconv5 = layers.Conv2DTranspose(filters = 4*n_filters, kernel_size = (kernel_size, kernel_size), strides = (2, 2), padding = 'same')(conv4_2)
+    upconv5 = layers.concatenate([conv3_2, upconv5])
+    conv5_1 = down_conv(upconv5, 4*n_filters, kernel_size, dropout_rate)  
+    conv5_2 = down_conv(conv5_1, 4*n_filters, kernel_size, dropout_rate)  
+
+    upconv6 = layers.Conv2DTranspose(filters = 2*n_filters, kernel_size = (kernel_size, kernel_size), strides = (2, 2), padding = 'same')(conv5_2)
+    upconv6 = layers.concatenate([conv2_2, upconv6])
+    conv6_1 = down_conv(upconv6, 2*n_filters, kernel_size, dropout_rate)  
+    conv6_2 = down_conv(conv6_1, 2*n_filters, kernel_size, dropout_rate)  
+
+    upconv7 = layers.Conv2DTranspose(filters = n_filters, kernel_size = (kernel_size, kernel_size), strides = (2, 2), padding = 'same')(conv6_2)
+    upconv7 = layers.concatenate([conv1_2, upconv7])
+    conv7_1 = down_conv(upconv7, n_filters, kernel_size, dropout_rate)  
+    conv7_2 = down_conv(conv7_1, n_filters, kernel_size, dropout_rate)  
+
+    # last layer
+    output = layers.Conv2D(filters = output_channerl, kernel_size = (1, 1), activation = 'sigmoid')(conv7_2)
+
+    model = models.Model(input, output)
+
+    return model
+
+
+def unet_stereo_KITTI2015(input_size, 
+         n_filters = 32, 
+         kernel_size=3, 
+         dropout_rate=0.1,
+         output_channerl = 1):
+    input = layers.Input(input_size)
+
+    # conv
+    conv1_1 = down_conv(input, n_filters, kernel_size, dropout_rate)  
+    conv1_2 = down_conv(conv1_1, n_filters, kernel_size, dropout_rate)  
+    pool1 = layers.MaxPooling2D(pool_size = (2, 2))(conv1_2)
+    pool1 = layers.Dropout(rate = dropout_rate)(pool1)
+
+    conv2_1 = down_conv(pool1, 2*n_filters, kernel_size, dropout_rate)  
+    conv2_2 = down_conv(conv2_1, 2*n_filters, kernel_size, dropout_rate)  
+    pool2 = layers.MaxPooling2D(pool_size = (2, 2))(conv2_2)
+    pool2 = layers.Dropout(rate = dropout_rate)(pool2)
+
+    conv3_1 = down_conv(pool2, 4*n_filters, kernel_size, dropout_rate)  
+    conv3_2 = down_conv(conv3_1, 4*n_filters, kernel_size, dropout_rate)  
+    pool3 = layers.MaxPooling2D(pool_size = (2, 2))(conv3_2)
+    pool3 = layers.Dropout(rate = dropout_rate)(pool3)
+
+    conv4_1 = down_conv(pool3, 8*n_filters, kernel_size, dropout_rate)  
+    conv4_2 = down_conv(conv4_1, 8*n_filters, kernel_size, dropout_rate)  
+
+    upconv5 = layers.Conv2DTranspose(filters = 4*n_filters, kernel_size = (kernel_size, kernel_size), strides = (2, 2), padding = 'same')(conv4_2)
+    upconv5 = layers.concatenate([conv3_2, upconv5])
+    conv5_1 = down_conv(upconv5, 4*n_filters, kernel_size, dropout_rate)  
+    conv5_2 = down_conv(conv5_1, 4*n_filters, kernel_size, dropout_rate)  
+
+    upconv6 = layers.Conv2DTranspose(filters = 2*n_filters, kernel_size = (kernel_size, kernel_size), strides = (2, 2), padding = 'same')(conv5_2)
+    upconv6 = layers.concatenate([conv2_2, upconv6])
+    conv6_1 = down_conv(upconv6, 2*n_filters, kernel_size, dropout_rate)  
+    conv6_2 = down_conv(conv6_1, 2*n_filters, kernel_size, dropout_rate)  
+
+    upconv7 = layers.Conv2DTranspose(filters = n_filters, kernel_size = (kernel_size, kernel_size), strides = (2, 2), padding = 'same')(conv6_2)
+    upconv7 = layers.concatenate([conv1_2, upconv7])
+    conv7_1 = down_conv(upconv7, n_filters, kernel_size, dropout_rate)  
+    conv7_2 = down_conv(conv7_1, n_filters, kernel_size, dropout_rate)  
+
+    # last layer
+    output = layers.Conv2D(filters = output_channerl, kernel_size = (1, 1), activation = 'sigmoid')(conv7_2)
+
+    model = models.Model(input, output)
+
+    return model

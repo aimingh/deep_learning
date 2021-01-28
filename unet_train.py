@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.utils import plot_model
-from tools.segmentation import unet
+from tools.segmentation import unet, unet_small
 from tools.utils import flow_from_dir_concat_images, step_for_epoch
 import os
 
@@ -9,8 +9,8 @@ IMG_WIDTH = 256
 IMG_HEIGHT = 256
 BUFFER_SIZE = 400
 BATCH_SIZE = 32
-EPOCH = 100
-PATH = "./datasets/cityscapes/train"
+EPOCH = 200
+PATH = "./datasets/cityscapes/train_seg"
 
 if __name__ == "__main__":
     data = flow_from_dir_concat_images(IMG_WIDTH=IMG_WIDTH, IMG_HEIGHT=IMG_HEIGHT)
@@ -19,21 +19,21 @@ if __name__ == "__main__":
     train_dataset = train_dataset.shuffle(BUFFER_SIZE)
     train_dataset = train_dataset.batch(BATCH_SIZE)
 
-    model = unet((256,256,3), 
+    model = unet_small((256,256,3), 
                 n_filters = 32, 
                 kernel_size=3, 
                 dropout_rate=0.1,
-                output_channerl = 3)
+                output_channerl = 1)
 
     model.compile(optimizer='adam',
                 loss='mse',
                 metrics=['mse'])
 
     model.summary()
-    plot_model(model, show_shapes=True, to_file='unet.png')
+    plot_model(model, show_shapes=True, to_file='unet_small.png')
 
     callbacks = [keras.callbacks.TensorBoard(
-                    log_dir='Unet',
+                    log_dir='Unet_small_log',
                     histogram_freq=1,
                     write_graph=True,
                     update_freq=1,)]
@@ -42,4 +42,4 @@ if __name__ == "__main__":
                         epochs=EPOCH,
                         callbacks=callbacks)
 
-    model.save('Unet.h5')
+    model.save('Unet_small.h5')

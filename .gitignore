@@ -3,6 +3,7 @@ datasets/*
 __pycache__/*
 *log*/*
 *.png
+*.jpg
 
 */log*/*
 */__pycache__/*
@@ -13,3 +14,8 @@ __pycache__/*
 */*/*.csv
 */*/*checkpoint*/*
 */*/__pycache__/*
+model_example/4.Unet/Unet/*
+Unet_small_trt/*
+Unet_small/*
+*.zip
+*.h5

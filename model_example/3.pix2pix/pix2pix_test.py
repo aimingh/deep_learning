@@ -29,5 +29,7 @@ test_dataset = tf.data.Dataset.list_files(test_dir + "/*.jpg")
 test_dataset = test_dataset.map(data.load_image_test)
 test_dataset = test_dataset.batch(BATCH_SIZE)
 
+step = 0
 for inp, tar, filename in test_dataset.take(step_for_epoch):
     model.generate_images(model.generator, inp, tar, filename, result_dir)
+    print("test step: " + str(step))

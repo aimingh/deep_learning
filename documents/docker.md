@@ -36,6 +36,16 @@
 * vscode에서 f1 키를 누르고 Remote-Containers: Attach to Running Container
 * 원하는 docker container 선택
 
+## 파일전송
+* 호스트에서 컨테이너로
+    ```
+    docker cp /path/file container_name:/path/file
+    ```
+* 컨테이너에서 호스트로
+    ```
+    docker cp container_name:/path/file /path/file
+    ```
+
 ## 참고문서
 1. [docker guides rootless](https://docs.docker.com/engine/security/rootless/)
 2. [SSH Key - 비밀번호 없이 로그인](https://opentutorials.org/module/432/3742)

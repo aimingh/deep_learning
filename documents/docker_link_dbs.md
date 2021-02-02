@@ -41,3 +41,8 @@ apt install mongodb-clients
 mysql -h mariadb_name -u root -p
 mongo mongodb_name:27017
 ```
+
+## 참고문서
+* [Docker 컨테이너 연결하기](https://devyurim.github.io/development%20environment/docker/2018/08/09/docker-2.html)
+* [dockerhub mariadb](https://hub.docker.com/_/mariadb/)
+* [dockerhub mongo](https://hub.docker.com/_/mongo)

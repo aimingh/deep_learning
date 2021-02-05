@@ -28,6 +28,7 @@
     scp $HOME/.ssh/id_rsa.pub egoing@egoing.net:id_rsa.pub
     ```
 * ssh로 docker 서버에 접속 후 공개키 authorized_keys에 추가
+    ```
     cat $HOME/id_rsa.pub >> $HOME/.ssh/authorized_keys
     rm $HOME/id_rsa.pub
     ```
